@@ -1,44 +1,61 @@
-# h-blog
-
-基于 Node.js 的个人开源博客系统，采用响应式布局，支持移动设备直接访问，功能全面，美观大方。
-
-
-
-# 目录结构
-
-对应文件及文件夹的用处：
-
-1. `models`: 存放操作数据库的文件
-2. `public`: 存放静态文件，如样式、图片等
-3. `routes`: 存放路由文件
-4. `views`: 存放模板文件
-5. `index.js`: 程序主文件
-6. `package.json`: 存储项目名、描述、作者、依赖等等信息
+<p align="center">
+	<img alt="h-blog" src="https://github.com/huanghanzhilian/huanghanzhilian/raw/main/projects/h-blog.png" width="300">
+</p>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">H-BLOG</h1>
 
 
-# 安装依赖模块
+<h4 align="center">A Lightweight Blog System Based on Node.js and Express.js, Compatible with Desktop, Tablet, and Phone</h4>
 
-对应模块的用处
+## README.md
+- en [English](README.md)
+- zh_CN [Simplified Chinese](README.zh_CN.md)
 
-1. `express`: web 框架
-2. `ejs`: 模板
-3. `mongoose`: MongoDB对象建模设计异步环境中工作
-4. `markdown-it`: 编辑器转化
-5. `body-parser`: 将表单里的数据进行格式化
-6. `multer`: 图片上传组件 表单基于 multipart/form-data 类型
-7. `underscore`: `_.extend`用新对象里的字段替换老的字段
-8. `moment`: 时间格式化
+## Preface
 
-1. `express-session`: session 中间件
-1. `connect-mongo`: 将 session 存储于 mongodb，结合 express-session 使用
+`h-blog` is a lightweight blog system, supporting responsive interaction, with elegant interface, rich features, compact and fast, comprehensive functionality, and beautiful design.
 
-1. `config-lite`: 读取配置文件
+Hope visitors can gain something. The story doesn't end, and youth doesn't fade.
 
-# 配置文件
+## Project Online Demo
+
+**Project Online Demo:**
+
+Deployment Address: [https://blog.huanghanlian.com/](https://blog.huanghanlian.com/)
+
+Project GitHub: [https://github.com/huanghanzhilian/h-blog](https://github.com/huanghanzhilian/h-blog)
+
+## Directory Structure
+
+The purpose of each file and folder:
+
+1. `models`: Stores files for database operations
+2. `public`: Stores static files such as styles, images, etc.
+3. `routes`: Stores route files
+4. `views`: Stores template files
+5. `index.js`: Main program file
+6. `package.json`: Stores project name, description, author, dependencies, etc.
+
+## Install Dependencies
+
+Purposes of corresponding modules:
+
+1. `express`: Web framework
+2. `ejs`: Template
+3. `mongoose`: MongoDB object modeling designed to work in an asynchronous environment
+4. `markdown-it`: Editor conversion
+5. `body-parser`: Formats data from forms
+6. `multer`: Image upload component for forms based on multipart/form-data type
+7. `underscore`: `_.extend` replaces fields in the old object with fields in the new object
+8. `moment`: Time formatting
+9. `express-session`: Session middleware
+10. `connect-mongo`: Stores session in mongodb, used in conjunction with express-session
+11. `config-lite`: Reads configuration files
+
+## Configuration File
 
 config/default.js
 
-```
+```javascript
 module.exports = {
   port: 3001,
   session: {
@@ -46,28 +63,26 @@ module.exports = {
     key: 'h-blog',
     maxAge: 2592000000
   },
-  mongodb: 'mongodb://localhost:27017/myblog'
+  mongodb: 'mongodb://localhost:27017/h-blog'
 }
 ```
 
-配置释义：
+Configuration interpretation:
 
-1. port: 程序启动要监听的端口号
-2. session: express-session 的配置信息
-3. mongodb: mongodb 的地址，以 mongodb:// 协议开头，h-blog 为 db 名
+1. `port`: Port number the program listens on when starting
+2. `session`: Configuration information for express-session
+3. `mongodb`: MongoDB address, starting with mongodb:// protocol, with h-blog as the db name
 
+## Feature Design and Route Design
 
-# 功能设计与路由设计
+**Blog Frontend**
 
-**博客前台**
-
-- 登录
-	1. 登录页：GET /signin
-	2. 登录：POST /user/signin
-- 注册页
-	1. 注册页：GET /signup
-	2. 注册：POST /user/signup
-- 文章列表页
-- 文章详情页
-
+- Login
+    1. Login Page: GET /signin
+    2. Login: POST /user/signin
+- Registration Page
+    1. Registration Page: GET /signup
+    2. Registration: POST /user/signup
+- Article List Page
+- Article Detail Page
 
