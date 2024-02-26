@@ -1,0 +1,158 @@
+<%- include('../shared/admin/header') %>
+    <link href="/libs/switchery/dist/switchery.min.css" rel="stylesheet" />
+    <div class="wrapper">
+        <%- include('../shared/admin/navbarTop') %>
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header"><%=title%></h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="postForm" action="/admin/saveSettings" method="post">
+                            <div class="panel-group">
+                                <div class="row">
+                                    <div class="col-md-6" style="margin-bottom:10px;">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">站点设置</h3>
+                                            </div>
+                                            <div class="panel-collapse">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item clearfix">
+                                                        <div class="pull-left">网站名称</div>
+                                                        <div class="pull-right">
+                                                            <input id="sitename" type="text" name="settings[sitename]" placeholder="该网站的名称" value="<%=settings.sitename%>" class="form-control">
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item clearfix">
+                                                        <div class="pull-left">网站域名</div>
+                                                        <div class="pull-right">
+                                                            <input id="sitedomain" type="text" name="settings[sitedomain]" placeholder="该网站的域名" value="<%=settings.sitedomain%>" class="form-control">
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item clearfix">
+                                                        <div class="pull-left">备案号（用于底部显示）</div>
+                                                        <div class="pull-right">
+                                                            <input id="recordno" type="text" name="settings[recordno]" placeholder="网站域名的备案号" value="<%=settings.recordno%>" class="form-control">
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item clearfix">
+                                                        <div class="pull-left">公众号图片</div>
+                                                        <div class="pull-right">
+                                                            <span class="fileinput-button">
+                                                                <%if(settings.fileupload){%>
+                                                                    <img alt="profile" src="<%=settings.fileupload%>" style="width:146px;height:146px;" class="profile-img">
+                                                                <%}else{%>
+                                                                    <i class="icontoolbar add-image-btn fa fa-plus profile-i-item"></i>
+                                                                <%}%>
+                                                                <input type="file" name="fileupload" id="fileupload" class="fileupload" />
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                    <li class="list-group-item clearfix">
+                                                        <div class="pull-left">是否开启qq群展示</div>
+                                                        <div class="pull-right">
+                                                            <input id="qqfileshow" type="hidden" name="settings[qqfileshow]" value="<%=settings.qqfileshow%>" />
+                                                            <input type="checkbox" <%- settings.qqfileshow==true?'checked="true"':''%> class="js-switch" />
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" style="margin-bottom:10px;">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">其他设置</h3>
+                                            </div>
+                                            <div class="panel-body"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <button id="btnSave" type="button" role="button" class="btn btn-primary">
+                                            <i class="fa fa-cloud-upload"></i> 保存修改
+                                        </button>
+                                    </div>
+                                </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <%- include('../shared/admin/common') %>
+    <script type="text/javascript" src="/libs/switchery/dist/switchery.min.js" charset="utf-8"></script>
+        <script type="text/javascript">
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        elems.forEach(function(el) {
+            var switchery = new Switchery(el, { color: '#337ab7' });
+        });
+        $(document).on({
+            change: function() {
+                $(this).prev(":hidden").val(this.checked);
+            }
+        }, ".js-switch");
+        //改变选择图片
+        $('#fileupload').on('change', function(e) {
+            var regex = /^([a-zA-Z0-9\s_\\.\-:\u4e00-\u9fa5])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+            var file = $('#fileupload')[0].files[0];
+            var filemaxsize = 1024 * 900; //900kb
+            var fileminsize = 1024 * 1; //30kb
+
+            console.log(file)
+            if (file.size > filemaxsize || file.size < fileminsize) {
+                alert('上传图像大小应在30K-900K范围之内')
+                $(this).val("");
+                return;
+            }
+            if (!regex.test(file.name.toLowerCase())) {
+                alert('文件格式异常');
+                $(this).val("");
+                return;
+            }
+
+            var reader = new FileReader(); //FileReader接口的方法 用来把文件读入内存，并且读取文件中的数据。
+            reader.onload = function(e) { //成功读取函数
+                var img = document.createElement("IMG"); //img等于  appendChild() 方法在节点的子节点列表末添加新的子节点
+                //img.height = "100";                                         //高
+                //img.width = "100";                                          //宽
+                img.src = e.target.result; //
+                $('.profile-img').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(file);
+        });
+
+
+        $('#btnSave').on('click', function() {
+            var formData = new FormData($("#postForm")[0]);
+            //console.log($("#postForm").serialize())
+            var $this = $(this);
+            $this.attr('disabled', 'disabled');
+            $.ajax({
+                url: $("#postForm")[0].action,
+                type: $("#postForm")[0].method,
+                data: formData,//$("#postForm").serialize(),
+                contentType: false,
+                processData: false,
+                success: function(res) {
+                    if(res.success){
+                        alert('保存成功')
+                    }else{
+                        alert('保存失败')
+                    }
+                },
+                error: function() {
+                    alert('保存失败')
+                },
+                complete: function() {
+                    $this.removeAttr("disabled");
+                }
+            });
+        });
+        </script>
+    <%- include('../shared/admin/footer') %>
+        

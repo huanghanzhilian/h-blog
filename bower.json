@@ -1,0 +1,26 @@
+{
+  "name": "myblog",
+  "description": "my blob",
+  "main": "index.js",
+  "authors": [
+    "huanghanzhilian <1319639755@qq.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/huanghanzhilian/myblog",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "3.3.7",
+    "sb-admin-2": "huanghanzhilian/sb-admin-2",
+    "font-awesome": "^5.1.0",
+    "switchery": "^0.8.2",
+    "editor.md": "^1.5.0"
+  }
+}

@@ -1,0 +1,137 @@
+<!-- <nav class="navbar navbar-default navbar-static-top" role="navigation"> -->
+<nav class="navbar navbar-default" role="navigation">
+    <div>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">
+                    Toggle navigation
+                </span>
+                <span class="icon-bar">
+                </span>
+                <span class="icon-bar">
+                </span>
+                <span class="icon-bar">
+                </span>
+            </button>
+            <a class="navbar-brand" href="#/">
+                HUANGHANZHILIAN
+            </a>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="seoDown">
+                <a class="btn-logout" href="javascript:;">
+                    seo
+                </a>
+            </li>
+            <% if(user){%>
+                <li class="dropDown">
+                    <span>
+                        欢迎 <%=user.name%>
+                    </span>
+                </li>
+            <%}%>
+                
+            <li class="dropDown">
+                <a class="btn-logout" href="/logout">
+                    退出
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+            <ul class="nav" id="side-menu">
+                <li>
+                    <a href="/admin/home" activeclass="active">
+                        <i class="fa fa-dashboard fa-fw">
+                        </i>
+                        <span>
+                            Home
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/">
+                        <i class="fa fa-bar-chart-o fa-fw">
+                        </i>
+                        <span>博客管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li>
+                            <a href="/admin/article/new" activeclass="active">新的文章</a>
+                        </li>
+                        <li>
+                            <a href="/admin/categorymanage" activeclass="active">分类管理</a>
+                        </li>
+                        <li>
+                            <a href="/admin/articlemanage" activeclass="active">文章管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#/">
+                        <i class="fa fa-bar-chart-o fa-fw">
+                        </i>
+                        <span>书单管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li>
+                            <a href="/admin/wiki/new" activeclass="active">新的书单</a>
+                        </li>
+                        <li>
+                            <a href="/admin/wikimanage" activeclass="active">书单管理</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/admin/comment" activeclass="active">
+                        <i class="fa fa-comment-o fa-fw">
+                        </i>
+                        <span>评论管理</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/guestbook" activeclass="active">
+                        <i class="fa fa-pencil-square-o fa-fw">
+                        </i>
+                        <span>留言管理</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/settings" activeclass="active">
+                        <i class="fa fa-cogs fa-fw">
+                        </i>
+                        <span>系统设置</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/about" activeclass="active">
+                        <i class="fa fa-users fa-fw">
+                        </i>
+                        <span>关于本站</span>
+                    </a>
+                </li>
+                <!-- <li>
+                    <a href="#/">
+                        <i class="fa fa-wrench fa-fw">
+                        </i>
+                        <span>
+                            订单
+                        </span>
+                        <span class="fa arrow">
+                        </span>
+                    </a>
+                    <ul class="nav nav-second-level collapse">
+                        <li>
+                            <a href="/order" activeclass="active">
+                                订单管理
+                            </a>
+                        </li>
+                    </ul>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+</nav>

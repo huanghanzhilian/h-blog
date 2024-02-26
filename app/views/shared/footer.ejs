@@ -1,0 +1,45 @@
+<footer id="footer" class="bs-docs-footer">
+  <div class="container">
+    <ul class="bs-docs-footer-links">
+      <li><a href="https://github.com/huanghanzhilian/myblog">GitHub</a></li>
+      <li><a href="/guestbook">留言板</a></li>
+      <li><a href="/about/">关于</a></li>
+    </ul>
+    <p>
+      <%=config.recordno%>
+    </p>
+    <div>网站备案号：<a href="https://beian.miit.gov.cn" target="_blank">京ICP备17065363号</a></div>
+  </div>
+</footer>
+<script src="/libs/jquery/dist/jquery.min.js"></script>
+<script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="/js/commonjs.js"></script>
+<script>
+(function() {
+  var bp = document.createElement('script');
+  var curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https') {
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  } else {
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?4d3aa515d579aa1b61b9b5becc7dfb6b";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+</body>
+
+</html>

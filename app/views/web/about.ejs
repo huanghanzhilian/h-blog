@@ -1,0 +1,64 @@
+<%- include('../shared/header') %>
+    <%- include('../shared/navbarTop') %>
+        <div id="main" class="container">
+            <div class="row">
+                <div class="col-md-9" id="content">
+                    <div class="panel panel-default">
+                        <div class="panel-heading topic_header" id="user_status">
+                            <h3><%=title%></h3>
+                        </div>
+                        <div class="panel-body yue">
+                          <%- about.content%>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" id="sidebar">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">个人分类</div>
+                        <ul class="list-group">
+                            <% categorys.forEach(function(item) {%>
+                                <li class="list-group-item">
+                                  <a class="dark category_name" href="/results?cat=<%=item._id%>"><%=item.name%>
+                                    <span class="pull-right"><%=item.articles.length%>篇</span>
+                                  </a>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">最新文章</div>
+                        <ul class="list-group">
+                            <% newests.forEach(function(item) {%>
+                                <li class="list-group-item">
+                                  <a class="dark topic_title" href="/article/<%= item._id %>" title="<%=item.title %>"><%=item.title %></a>
+                                  <p class="read">阅读量：<span><%=item.pv%></span></p>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">最热文章</div>
+                        <ul class="list-group">
+                            <% hottests.forEach(function(item) {%>
+                                <li class="list-group-item">
+                                  <a class="dark topic_title" href="/article/<%= item._id %>" title="<%=item.title %>"><%=item.title %></a>
+                                  <p class="read">阅读量：<span><%=item.pv%></span></p>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">最新评论</div>
+                        <ul class="list-group">
+                            <% newComments.forEach(function(item) {%>
+                                <li class="list-group-item">
+                                  <a class="dark topic_title" href="/article/<%= item.article._id %>" title="<%=item.title %>"><%=item.article.title %></a>
+                                  <p class="read"><%=item.from.name%>：<span><%=item.content%></span></p>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include('../shared/footer') %>

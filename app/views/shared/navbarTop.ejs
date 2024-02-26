@@ -1,0 +1,49 @@
+<div class="navbar navbar-default">
+    <input type="hidden" id="wechatShare" value="<%=wechatShare%>">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img alt="黄继鹏博客" title="黄继鹏博客" src="/images/logo.png">
+            </a>
+        </div>
+        <form class="navbar-form navbar-left navbar-search" role="search" action="/results">
+            <div class="form-group">
+                <input type="text" name="q" class="form-control" placeholder="搜索文章">
+            </div>
+        </form>
+        <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav my-nav-pills navbar-right">
+                <li class="">
+                    <a href="/">博客</a>
+                </li>
+                <li class="">
+                    <a href="/wikiList">书</a>
+                </li>
+                <li>
+                    <a href="/guestbook">留言</a>
+                </li>
+                <li>
+                    <a href="/about">关于</a>
+                </li>
+                <% if(user){%>
+                    <li>
+                        <a href="/logout">退出</a>
+                    </li>
+                <%}else{%>
+                    <li>
+                        <a href="/signup">注册</a>
+                    </li>
+                    <li>
+                        <a href="/signin">登录</a>
+                    </li>
+                <%}%>
+            </ul>
+        </div>
+    </div>
+</div>

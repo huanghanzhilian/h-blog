@@ -1,0 +1,178 @@
+<%- include('../shared/header') %>
+<%- include('../shared/navbarTop') %>
+<div id="main" class="container">
+  <div class="row">
+    <div class="col-md-9" id="content">
+      <div class="panel panel-default">
+        <div class="panel-collapse">
+          <ul class="list-group panel">
+            <% articles.forEach(function(item) {%>
+            <li class="list-group-item panel-body">
+              <% if(item.haveImg){ %>
+              <a href="/article/<%= item._id %>" class="item-link">
+                <div class="item-content col-xs-8 col-sm-8 col-md-8 col-lg-10">
+                  <h4 class="article-title">
+                    <%=item.title %>
+                  </h4>
+                  <p class="article-content">
+                    <%=item.content%>
+                  </p>
+                  <div class="changes">
+                    <span>
+                      <%=item.categoryid.name %></span>
+                    <span>
+                      <%=moment(item.meta.createAt).format("YYYY-MM-DD HH:mm:ss") %></span>
+                    <span> 阅读
+                      <%=item.pv%> 次</span>
+                  </div>
+                </div>
+                <div class="wrap-img col-xs-4 col-sm-4 col-md-4 col-lg-2">
+                  <div class="img-item-wraper">
+                    <img src="<%=item.haveImg%>" alt="">
+                  </div>
+                </div>
+              </a>
+              <% }else{ %>
+              <a href="/article/<%= item._id %>" class="item-link">
+                <div class="item-content">
+                  <h4 class="article-title">
+                    <%=item.title %>
+                  </h4>
+                  <p class="article-content">
+                    <%=item.content%>
+                  </p>
+                  <div class="changes">
+                    <span>
+                      <%=item.categoryid.name %></span>
+                    <span>
+                      <%=moment(item.meta.createAt).format("YYYY-MM-DD HH:mm:ss") %></span>
+                    <span> 阅读
+                      <%=item.pv%> 次</span>
+                  </div>
+                </div>
+              </a>
+              <%}%>
+            </li>
+            <% }) %>
+          </ul>
+          <% if (pageNow<=totalPage) { %>
+          <nav aria-label="Page navigation" class="col-lg-12">
+            <ul class="pagination">
+              <% if (pageNow!=1) { %>
+              <li>
+                <a href="?p=1" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <% } %>
+              <% if (hasPreviousPage) { %>
+              <li><a href="?p=<%=prePage%>">‹</a></li>
+              <% } %>
+              <% for(var i=(pageNow-3>0?pageNow-4:0);i<(pageNow + 3 < totalPage?pageNow + 3 : totalPage);i++){ %>
+              <% if (pageNow==i+1) { %>
+              <li class="active"><a href="javascript:;">
+                  <%=i+1%></a></li>
+              <% } else { %>
+              <li><a href="?p=<%=i+1%>">
+                  <%=i+1%></a></li>
+              <% } %>
+              <% } %>
+              <% if (hasNextPage) { %>
+              <li><a href="?p=<%=nextPage%>">›</a></li>
+              <% } %>
+              <% if (pageNow!=totalPage) { %>
+              <li>
+                <a href="?p=<%=totalPage%>" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+              <% } else { %>
+              <% } %>
+              <li>
+                <input id="topage" type="text" class="form-control ng-pristine ng-valid ng-empty ng-touched" style="float: left;min-width:40px;max-width:50px;">
+              </li>
+              <li>
+                <button id="gopage" class="btn btn-primary" style="float: left;margin-left: 5px;">Go</button>
+              </li>
+              <span class="page-count">共
+                <%=recordAmount%>条记录，
+                <%=totalPage%>页</span>
+            </ul>
+          </nav>
+          <% }else{ %>
+          <p class="col-lg-12 no-data">暂无数据</p>
+          <%}%>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" id="sidebar">
+      <div class="panel panel-default">
+        <div class="panel-heading">个人分类</div>
+        <ul class="list-group">
+          <% categorys.forEach(function(item) {%>
+          <li class="list-group-item">
+            <a class="dark category_name" href="/results?cat=<%=item._id%>">
+              <%=item.name%>
+              <span class="pull-right">
+                <%=item.articles.length%>篇</span>
+            </a>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+      <!-- <div class="panel panel-default">
+                        <div class="panel-heading">最新文章</div>
+                        <ul class="list-group">
+                            <% newests.forEach(function(item) {%>
+                                <li class="list-group-item">
+                                  <a class="dark topic_title" href="/article/<%= item._id %>" title="<%=item.title %>"><%=item.title %></a>
+                                  <p class="read">阅读量：<span><%=item.pv%></span></p>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div> -->
+      <div class="panel panel-default">
+        <div class="panel-heading">最热文章</div>
+        <ul class="list-group">
+          <% hottests.forEach(function(item) {%>
+          <li class="list-group-item">
+            <a class="dark topic_title" href="/article/<%= item._id %>" title="<%=item.title %>">
+              <%=item.title %></a>
+            <p class="read">阅读量：<span>
+                <%=item.pv%></span></p>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">最新评论</div>
+        <ul class="list-group">
+          <% newComments.forEach(function(item) {%>
+          <li class="list-group-item">
+            <a class="dark topic_title" href="/article/<%= item.article._id %>" title="<%=item.title %>">
+              <%=item.article.title %></a>
+            <p class="read">
+              <%=item.from.name%>：<span>
+                <%=item.content%></span></p>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">关注我的微信公众号</div>
+        <div class="panel-body">
+          <img width="100%" src="<%=config.fileupload%>">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('../shared/footer') %>
+<script type="text/javascript">
+$("#gopage").on('click', function() {
+  var topage = $("#topage").val();
+  if (topage && !isNaN(topage)) {
+    location.href = '/?p=' + topage;
+  }
+})
+</script>

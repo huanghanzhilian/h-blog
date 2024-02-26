@@ -1,0 +1,172 @@
+<%- include('../shared/header') %>
+    <%- include('../shared/navbarTop') %>
+        <div id="main" class="container">
+            <div class="row">
+                <div class="col-md-9" id="content">
+                    <div class="panel panel-default">
+                        <div class="panel-heading topic_header">
+                            <h1 class="topic_full_title"><%=title%></h1>
+                            <div class="changes">
+                                <span> <%=createAt%></span>
+                                <span> <%=contentType%></span>
+                                <span> 阅读 <%=article.pv%> 次</span>
+                            </div>
+                        </div>
+                        <div class="panel-body yue" id="content_main">
+                            <%- content %>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading topic_header" id="user_status" <%-user?'user_status=1':''%> >
+                            <span><%=comments.length%>条评论</span>
+                        </div>
+                        <div class="panel-body">
+                            <form style="margin-bottom: 20px" class="pl_wrap_main" action="/user/comment" method="post">
+                              <div class="pl_image_wrap_main">
+                                <img class="media-object" src="http://blog.huanghanlian.com/uploads/qq/13c1e209-9b6e-4be4-be28-a2ae25f44da2.png" width="45" height="45" alt="...">
+                              </div>
+                              <div class="pl_input_wrap">
+                                <input type="hidden" name="comment[article]" value="<%=article._id%>">
+                                <%if(user){%>
+                                  <input type="hidden" name="comment[from]" value="<%=user._id%>">
+                                <%}%>
+
+                                <textarea name="comment[content]" id="textarea"  class="style-scope iron-autogrow-textarea" rows="1" autocomplete="off" required="" maxlength="10000"></textarea>
+                                <button type="submit" class="btn btn-primary">提交</button>
+                              </div>
+                            </form>
+                            <ul class="media-list">
+                              <% comments.forEach(function(item) {%>
+                                <li class="media">
+                                  <div class="pull-left">
+                                    <a href="#">
+                                      <img class="media-object" src="http://blog.huanghanlian.com/uploads/qq/13c1e209-9b6e-4be4-be28-a2ae25f44da2.png" width="45" height="45" alt="...">
+                                    </a>
+                                  </div>
+                                  <div class="media-body">
+                                    <h4 class="media-heading"><%=item.from.name%></h4>
+                                    <p><%=item.content%></p>
+                                    <p><span class="reply2_btn">回复</span></p>
+                                    <form class="pl_wrap" action="/user/comment" method="post">
+                                      <div class="pl_image_wrap">
+                                        <img class="media-object" src="http://blog.huanghanlian.com/uploads/qq/13c1e209-9b6e-4be4-be28-a2ae25f44da2.png" width="45" height="45" alt="...">
+                                      </div>
+                                      <div class="pl_input_wrap">
+                                        <input type="hidden" name="comment[article]" value="<%=article._id%>">
+                                        <%if(user){%>
+                                          <input type="hidden" name="comment[from]" value="<%=user._id%>">
+                                        <%}%>
+
+                                        <input type="hidden" id="toId" name="comment[tid]" value="<%=item.from._id%>">
+                                        <input type="hidden" id="commentId" name="comment[cid]" value="<%=item._id%>">
+
+                                          <textarea id="textarea" name="comment[content]" class="style-scope iron-autogrow-textarea" rows="1" autocomplete="off" required="" maxlength="10000"></textarea>
+                                          <button type="submit" class="btn btn-primary">提交</button>
+                                      </div>
+                                    </form>
+
+                                    <% if(item.reply && item.reply.length > 0){ %>
+                                      <% item.reply.forEach(function(reply) {%>
+                                        <div class="media">
+                                          <div class="pull-left">
+                                            <a href="#">
+                                              <img class="media-object" src="http://blog.huanghanlian.com/uploads/qq/13c1e209-9b6e-4be4-be28-a2ae25f44da2.png" width="45" height="45" alt="...">
+                                            </a>
+                                          </div>
+                                          <div class="media-body">
+                                            <h4 class="media-heading">
+                                              <%=reply.from.name%><span class="text-info">&nbsp;reply&nbsp;</span><%=reply.to.name%>
+                                            </h4>
+                                            <p><%=reply.content%></p>
+                                            <p><span class="reply2_btn">回复</span></p>
+                                            <form class="pl_wrap" action="/user/comment" method="post">
+                                              <div class="pl_image_wrap">
+                                                <img class="media-object" src="http://blog.huanghanlian.com/uploads/qq/13c1e209-9b6e-4be4-be28-a2ae25f44da2.png" width="45" height="45" alt="...">
+                                              </div>
+                                              <div class="pl_input_wrap">
+                                                <input type="hidden" name="comment[article]" value="<%=article._id%>">
+                                                <%if(user){%>
+                                                  <input type="hidden" name="comment[from]" value="<%=user._id%>">
+                                                <%}%>
+
+                                                <input type="hidden" id="toId" name="comment[tid]" value="<%=reply.from._id%>">
+                                                <input type="hidden" id="commentId" name="comment[cid]" value="<%=item._id%>">
+
+                                                  <textarea id="textarea" name="comment[content]" class="style-scope iron-autogrow-textarea" rows="1" autocomplete="off" required="" maxlength="10000"></textarea>
+                                                  <button type="submit" class="btn btn-primary">提交</button>
+                                              </div>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      <%})%>
+                                    <% } %>
+
+                                  </div>
+                                </li>
+                              <%})%>
+
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-3" id="sidebar">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">个人分类</div>
+                        <ul class="list-group">
+                            <% categorys.forEach(function(item) {%>
+                                <li class="list-group-item">
+                                  <a class="dark category_name" href="/results?cat=<%=item._id%>"><%=item.name%>
+                                    <span class="pull-right"><%=item.articles.length%>篇</span>
+                                  </a>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">最新文章</div>
+                        <ul class="list-group">
+                            <% newests.forEach(function(item) {%>
+                                <li class="list-group-item">
+                                  <a class="dark topic_title" href="/article/<%= item._id %>" title="<%=item.title %>"><%=item.title %></a>
+                                  <p class="read">阅读量：<span><%=item.pv%></span></p>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">最热文章</div>
+                        <ul class="list-group">
+                            <% hottests.forEach(function(item) {%>
+                                <li class="list-group-item">
+                                  <a class="dark topic_title" href="/article/<%= item._id %>" title="<%=item.title %>"><%=item.title %></a>
+                                  <p class="read">阅读量：<span><%=item.pv%></span></p>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">最新评论</div>
+                        <ul class="list-group">
+                            <% newComments.forEach(function(item) {%>
+                                <li class="list-group-item">
+                                  <a class="dark topic_title" href="/article/<%= item.article._id %>" title="<%=item.title %>"><%=item.article.title %></a>
+                                  <p class="read"><%=item.from.name%>：<span><%=item.content%></span></p>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+          var articleAllImg = document.getElementById('main').getElementsByTagName('img')
+          if (articleAllImg.length) {
+            shareImage = articleAllImg[0].src
+          }
+          console.log(shareImage)
+        </script>
+        <%- include('../shared/footer') %>
+

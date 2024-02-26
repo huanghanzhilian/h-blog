@@ -1,0 +1,245 @@
+/* 全屏自适应布局  */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+}
+
+
+
+/*布局 s */
+
+.g-hd,
+.g-sd,
+.g-mn,
+.g-ft {
+    position: absolute;
+    left: 0;
+}
+
+.g-hd,
+.g-ft {
+    width: 100%;
+}
+
+.g-sd,
+.g-mn {
+    top: 65px;
+    bottom: 0px;
+    overflow: auto;
+}
+
+.g-hd {
+    top: 0;
+    height: 65px;
+}
+
+.g-sd {
+    width: 45px;
+    background-color: #2f4050;
+}
+
+.g-mn {
+    left: 45px;
+    right: 0;
+}
+.g-mn.nemu_max{
+    left: 200px;
+}
+.g-sd.nemu_max {
+    width: 200px;
+}
+
+.g-ft {
+    bottom: 0;
+    height: 50px;
+}
+
+
+/*布局 e */
+
+
+/*页面头部 s */
+
+.navbar {
+    background-color: #373d41;
+    border: none;
+    border-radius: 0;
+}
+
+.navbar .navbar-brand {
+    height: 64px;
+    line-height: 40px;
+}
+
+.navbar-brand>img {
+    width: 200px;
+    height: 64px;
+    margin-left: -14px;
+    margin-top: -15px;
+}
+
+.my-nav-pills>li>a {
+    font-size: 16px;
+    line-height: 64px;
+    padding: 0 13px;
+    border-bottom: 1px solid transparent;
+}
+
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+    border-color: transparent!important;
+}
+
+.navbar-form {
+    margin-top: 16px;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+
+/*页面头部 es */
+
+
+/*左侧布局 s */
+
+.side {
+    margin: 0;
+    padding: 0;
+    padding-bottom: 15px;
+    list-style: none;
+    z-index: 1;
+    font-size: 14px;
+}
+
+.side>li {
+    margin: 0;
+    position: relative;
+}
+
+.side>li a {
+    display: block;
+    height: 100%;
+    color: #a7b1c2;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 40px;
+}
+
+
+
+
+.side>li.active {
+    color: #fff;
+}
+
+.side>li.active>a {
+    color: #fff;
+    border-right: solid 4px #19aa8d;
+}
+
+.side .client a span {
+    background-position: -48px -32px;
+}
+
+.side .client .active span {
+    background-position: -48px 0;
+}
+
+.side .icon_styles {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    display: inline-block;
+}
+
+.submenu {
+    background-color: #373d41;
+    display: none;
+    padding: 0;
+}
+
+.submenu>li>a {
+    height: 40px;
+    line-height: 40px;
+}
+
+.submenu>li.active>a {
+    border-right: solid 4px #19aa8d;
+}
+
+.expand .submenu {
+    display: block;
+}
+
+.sidebar-fold {
+    height: 30px;
+    width: 100%;
+    background: #293846;
+    color: #aeb9c2;
+    text-align: center;
+    line-height: 30px!important;
+    font-size: 12px;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+.nav-label{
+    display: none;
+}
+.nemu_max .nav-label{
+    display: inline-block;
+}
+
+
+/*左侧布局 e */
+
+
+/*主体内容 s */
+
+.view_body {
+    padding: 20px;
+}
+
+
+/*主体内容 e */
+
+
+/*icon 字体 s */
+
+@font-face {
+  font-family: 'iconfont';  /* project id 742594 */
+  src: url('//at.alicdn.com/t/font_742594_xqcjsjpsijg.eot');
+  src: url('//at.alicdn.com/t/font_742594_xqcjsjpsijg.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_742594_xqcjsjpsijg.woff') format('woff'),
+  url('//at.alicdn.com/t/font_742594_xqcjsjpsijg.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_742594_xqcjsjpsijg.svg#iconfont') format('svg');
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-bokexinwen:before { content: "\e6fd"; }
+
+.icon-liuyan-copy:before { content: "\e600"; }
+
+.icon-view_column:before { content: "\e689"; }
+
+.icon-sanhengxian:before { content: "\e601"; }
+
+.icon-arrLeft-fill:before { content: "\e602"; }
+
+.icon-sanx:before { content: "\e7f0"; }

@@ -1,0 +1,160 @@
+<%- include('../shared/admin/header') %>
+    <div class="wrapper">
+        <%- include('../shared/admin/navbarTop') %>
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">留言管理</h1>
+                        <!-- <div class="page-header-right">
+                            <a class="btn btn-primary" href="#/product.category/add">
+                                <i class="fa fa-plus fa-fw"></i>
+                                <span>添加品类</span>
+                            </a>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="search-wrap col-md-12">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <select class="form-control">
+                                    <option value="productId">
+                                        按商品id查询
+                                    </option>
+                                    <option value="productName">
+                                        按商品名称查询
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="关键词">
+                            </div>
+                            <button type="button" class="btn btn-default">查询</button>
+                        </div>
+                    </div>
+                    <div class="table-wrap col-lg-12">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>留言人</th>
+                                    <th>内容</th>
+                                    <th>发布时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% articles.forEach(function(item) {%>
+                                    <tr class="item-id-<%=item._id%>">
+                                        <td>
+                                            <p>
+                                                <%=item._id %>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <%=item.from.name %>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <%=item.content %>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <%=moment(item.meta.createAt).format("YYYY-MM-DD HH:mm:ss") %>
+                                        </td>
+                                        <td>
+                                            <a class="opear" href="/admin/guestbook/children/<%=item._id%>">查看二级评论</a>
+                                            <a class="opear" onclick="deleteItem('<%=item._id%>')" href="#">删除</a>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% if (pageNow<=totalPage) { %>
+                        <nav aria-label="Page navigation" class="col-lg-12">
+                          <ul class="pagination">
+                            <% if (pageNow!=1) { %>
+                                <li>
+                                  <a href="?p=1" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                  </a>
+                                </li>
+                            <% } %>
+                            <% if (hasPreviousPage) { %>
+                                <li><a href="?p=<%=prePage%>">‹</a></li>
+                            <% } %>
+
+                            <% for(var i=(pageNow-3>0?pageNow-4:0);i<(pageNow + 3 < totalPage?pageNow + 3 : totalPage);i++){ %>
+                                <% if (pageNow==i+1) { %>
+                                    <li class="active"><a href="javascript:;"><%=i+1%></a></li>
+                                <% } else { %>
+                                    <li><a href="?p=<%=i+1%>"><%=i+1%></a></li>
+                                <% } %>
+                            <% } %>
+
+                            <% if (hasNextPage) { %>
+                                <li><a href="?p=<%=nextPage%>">›</a></li>
+                            <% } %>
+
+
+                            <% if (pageNow!=totalPage) { %>
+                                <li>
+                                  <a href="?p=<%=totalPage%>" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                  </a>
+                                </li>
+                            <% } else { %>
+
+                            <% } %>
+                            <li>
+                                <input id="topage" type="text" class="form-control ng-pristine ng-valid ng-empty ng-touched" style="float: left;min-width:40px;max-width:50px;">
+                            </li>
+                            <li>
+                                <button id="gopage" class="btn btn-primary" style="float: left;margin-left: 5px;">Go</button>
+                            </li>
+                            <span class="page-count">共 <%=recordAmount%>条记录，<%=totalPage%>页</span>
+                          </ul>
+                        </nav>
+                    <% }else{ %>
+                        <p class="col-lg-12 no-data">暂无数据</p>
+                    <% } %>
+                </div>
+            </div>
+    </div>
+    <%- include('../shared/admin/common') %>
+        <link rel="stylesheet" href="/css/component/rc-pagination.css">
+
+        <script type="text/javascript">
+            $("#gopage").on('click',function(){
+                var topage=$("#topage").val();
+                if(topage&&!isNaN(topage)){
+                    location.href='?p='+topage;
+                }
+            })
+            function deleteItem(id){
+                if (confirm("你确定删除吗？")) {
+                    var tr = $('.item-id-' + id);
+                    //tr.remove();
+                    $.ajax({
+                        type: 'DELETE', // 异步请求类型：删除
+                        url: '/admin/guestbook/list?id=' + id,
+                    })
+                    .done(function(results) {
+                        if (results.success === 1) {
+                            location.reload();
+                        }
+                    });
+                }
+                else {
+                    
+                }
+
+            }
+            // $('#myModal').modal({
+            //   keyboard: false
+            // })
+        </script>
+    <%- include('../shared/admin/footer') %>

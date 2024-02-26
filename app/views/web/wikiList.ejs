@@ -1,0 +1,28 @@
+<%- include('../shared/header') %>
+<%- include('../shared/navbarTop') %>
+<div id="main" class="container">
+    <div class="row">
+        <div class="col-md-12" id="content">
+            <div class="panel panel-default">
+                <div class="panel-heading topic_header" id="user_status">
+                    <h3><%=title%></h3>
+                </div>
+                <div class="panel-body">
+                    <% wiki.forEach(function(item) {%>
+                        <div class="col-md-3">
+                            <div class="thumbnail">
+                                <a href="/wiki/<%= item._id %>">
+                                    <img style="width: 100%;height: 316px;" src="<%=item.poster %>" alt="<%=item.title %>">
+                                </a>
+                                <div class="caption">
+                                    <h4 class="ellipsis"><%=item.title %></h4>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../shared/footer') %>

@@ -1,0 +1,114 @@
+<%- include('../shared/admin/header') %>
+<div class="wrapper wrapper-content animated fadeInUp">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox">
+					<div class="ibox-title">
+						<h5>查询列表{$meta_title}</h5>
+						<div class="ibox-tools">
+						</div>
+					</div>
+					<include file="Public/downstyle"/>
+					<div class="ibox-content">
+						
+						<div class="table-responsive">
+							<table class="table table-hover table-bordered">
+								<tbody>
+									<volist name = "_list" id = "vo">
+									<div class="ibox-content">
+
+											<div class="form-group">
+												<div class="col-sm-10 col-sm-offset-2">
+													<!-- <button class="btn btn-sm btn-primary" type="button" id="search" url="{:U($vo['apis'])}">
+														<i class="fa fa-search"></i> {$vo.title} 
+													</button> -->
+													<!-- <button class="btn btn-danger m-t-n-xs ajax-post" target-form="form-horizontal" type="submit">
+														<i class="fa fa-search"></i> {$vo.title} 
+													</button> -->
+													<div class="col-md-2">
+														<button class="btn btn-danger m-t-n-xs ajax-post" target-form="form-horizontal" data-type="order">
+															<i class="fa fa-search"></i>查询订单
+														</button>
+														<button class="btn btn-danger m-t-n-xs ajax-post" target-form="form-horizontal" data-type="user" >
+															<i class="fa fa-search"></i>查询用户
+														</button>
+													</div>
+													<div class="col-md-8 show-main" style="display: none;">
+														<div class="textarea-wrap">
+															<textarea name="comment[content]" style="width: 100%;" id="textarea" rows="10" maxlength="10000"></textarea>
+														</div>
+														<button id="btnSave" style="margin-bottom: 20px;" type="button" role="button" class="btn btn-primary">
+				                                            <i class="fa fa-cloud-upload"></i> 查询
+				                                        </button>
+				                                        <div class="panel panel-default">
+									                        <div class="panel-heading topic_header">
+									                            <span class="topic_full_title">查询结果</span>
+									                        </div>
+									                        <div class="panel-body" id="content_main">
+									                            
+									                        </div>
+									                    </div>
+													</div>
+												</div>
+											</div>
+
+									</div>
+									</volist>
+                                </tbody>
+                            </table>
+                            <div class="page">
+                            	{$_page}
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+<%- include('../shared/admin/footer') %>
+
+<script type="text/javascript">
+	// $(document).on('.ajax-post','click',function(){
+	// 	alert(1)
+	// });
+	var ajaxType='';
+	$('.ajax-post').on('click',function(){
+		$('.show-main').show();
+		$('#content_main').html('')
+		$('textarea').val('');
+		ajaxType=$(this).attr('data-type');
+		//console.log(ajaxType)
+	});
+	$('#btnSave').on('click',function(){
+		if($('textarea').val()==''){
+			alert('查询条件为空');
+			return;
+		}
+		if(!ajaxType){
+			alert('查询类型为空');
+			return;
+		}
+		console.log(ajaxType)
+		var data={};
+		data[ajaxType]=$('textarea').val();
+		var $this = $(this);
+        $this.attr('disabled', 'disabled');
+		$.ajax({
+	        url: '/admin/saveSettings',
+	        type: 'post',
+	        data: data,
+	        success: function(data) {
+	        	$('#content_main').html(JSON.stringify(data))
+	        	console.log(data)
+	        },
+	        error: function() {
+	        	alert('错误')
+	        },
+	        complete: function() {
+	            $this.removeAttr("disabled");
+	        }
+	    });
+	});
+	
+</script>

@@ -1,0 +1,118 @@
+<%- include('../shared/admin/header') %>
+<div class="wrapper">
+    <%- include('../shared/admin/navbarTop') %>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header"><%=title%></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-wrap col-lg-12">
+                <form id="create_topic_form" action="/admin/article/save" method="post">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="name" class="col-md-1 control-label">文章名称</label>
+                            <div class="col-md-5">
+                                <% if (articles._id) { %>
+                                    <input type="text"
+                                        class="form-control"
+                                        name="article[title]"
+                                        id="name"
+                                        placeholder="请输入文章名称"
+                                        value="<%=articles.title%>" />
+                                <% } else { %>
+                                    <input type="text"
+                                        class="form-control"
+                                        name="article[title]"
+                                        id="name"
+                                        placeholder="请输入文章名称"
+                                        value="" />
+                                <% } %>
+                            </div>
+                        </div>
+                        <% if(articles._id){%>
+                            <input type="hidden" name="article[_id]" value="<%=articles._id%>">
+                        <%}%>
+                        <% if(articles.categoryid){%>
+                            <input type="hidden" name="article[beforeCategory]" value="<%=articles.categoryid%>">
+                        <%}%>
+                        <div class="form-group">
+                            <label for="category" class="col-md-1 control-label">文章分类</label>
+                            <div class="col-md-5" data-pp="<%=articles.categoryid%>">
+                                <select id="category" name="article[categoryid]" class="form-control cate-select col-md-5">
+                                    <option value="">请选择分类</option>
+                                    <% categories.forEach(function(item) {%>
+                                        <% if (articles.categoryid) { %>
+                                            <option <%- articles.categoryid.toString()==item._id.toString()?selected="selected":''%>  value="<%=item._id%>"><%=item.name%></option>
+                                        <% } else { %>
+                                            <option value="<%=item._id%>"><%=item.name%></option>
+                                        <% } %>
+                                    <% }) %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="col-md-1 control-label">文章状态</label>
+                            <div class="col-md-5">
+                                <select name="article[display]" class="form-control cate-select col-md-5">
+                                    <% if (articles && articles.display) { %>
+                                        <option <%- articles.display == '1' ? selected="selected":''%> value="1">上线</option>
+                                        <option <%- articles.display == '0' ? selected="selected":''%> value="0">下线</option>
+                                    <% } else { %>
+                                        <option value="1">上线</option>
+                                        <option value="0">下线</option>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">文章内容</label>
+                            <div id="editormd" class="col-md-10">
+                                <div id="editor">
+                                    <textarea name="article[content]" style="display:none;"><%=articles.content%></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-5">
+                                <button type="submit" class="btn btn-default btn-primary">提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../shared/admin/common') %>
+<!-- <link rel="stylesheet" href="http://lab.lepture.com/editor/editor.css">
+<script src="/localibs/editor/editor.js"></script>
+<script src="/localibs/editor/marked.js"></script> -->
+
+<!-- <script type="text/javascript">
+    var editor = new Editor();
+    editor.render($('.textarea')[0]);
+</script> -->
+
+<link rel="stylesheet" href="/libs/editor.md/css/editormd.min.css" />
+<script src="/libs/editor.md/editormd.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var editor = editormd("editor", {
+            width: "100%",
+            height: "100%",
+            // markdown: "xxxx",     // dynamic set Markdown text
+            path : "/libs/editor.md/lib/",
+            htmlDecode : true,
+            imageUpload : true, //必须
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "/uploadImg", //必须
+            onload : function() {
+                initPasteDragImg(this); //必须
+            }
+        });
+    });
+</script>
+
+<%- include('../shared/admin/footer') %>

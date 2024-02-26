@@ -1,0 +1,23 @@
+	</body>
+<script type="text/javascript">
+$('.seoDown').click(function(){
+	$.ajax({
+        url: "/admin/seo",
+        data: {},
+        type: "POST",
+        dataType: "json",
+        success: function(res) {
+            if(res.success){
+                alert('执行成功')
+            }else{
+                alert('执行失败')
+            }
+        },
+        error: function() {
+            alert('执行失败')
+        },
+    });
+})
+
+</script>
+</html>
